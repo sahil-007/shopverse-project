@@ -273,14 +273,24 @@ jobs:
 
       - name: Verify deployment
         run: |
+          echo ""
+          echo "--- Nodes ---"
+          kubectl get nodes -o wide
+          echo ""
           echo "--- Pods ---"
           kubectl get pods -n shopverse
+          echo ""
+          echo "--- StatefulSets ---"
+          kubectl get sts -n shopverse
           echo ""
           echo "--- Services ---"
           kubectl get svc -n shopverse
           echo ""
-          echo "--- Nodes ---"
-          kubectl get nodes -o wide
+          echo "--- PV & PVC ---"
+          kubectl get pv,pvc -n shopverse
+          echo ""
+          echo "--- Secrets ---"
+          kubectl get secrets -n shopverse
           echo ""
           echo "--- Ingress ---"
           kubectl get ingress -n shopverse 2>/dev/null || echo "No ingress configured"
