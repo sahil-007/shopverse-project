@@ -1098,7 +1098,9 @@ jobs:
           echo ""
           echo "--- Ingress ---"
           kubectl get ingress -n shopverse 2>/dev/null || echo "No ingress configured"
- 
+
+
+
 ```
 
 ---
