@@ -641,17 +641,17 @@ kubectl exec -n shopverse shopverse-mysql-0 -- \
 
 Go to your GitHub repo > Settings > Secrets and variables > Actions, and add:
 
-| Secret                  | Description                                           |
-|-------------------------|-------------------------------------------------------|
-| `AWS_ACCESS_KEY_ID`     | IAM user access key                                   |
-| `AWS_SECRET_ACCESS_KEY` | IAM user secret key                                   |
-| `AWS_REGION`            | e.g., `us-east-1`                                     |
+| Secret                  | Description                                          |
+|-------------------------|------------------------------------------------------|
+| `AWS_ACCESS_KEY_ID`     | IAM user access key                                  |
+| `AWS_SECRET_ACCESS_KEY` | IAM user secret key                                  |
+| `AWS_REGION`            | e.g., `us-east-1`                                    |
 | `ECR_REGISTRY`          | e.g., `123456789.dkr.ecr.us-east-1.amazonaws.com`    |
-| `EKS_CLUSTER_NAME`      | e.g., `shopverse-cluster`                             |
-| `TF_STATE_BUCKET`       | S3 bucket for Terraform state                         |
-| `MYSQL_ROOT_PASSWORD`   | MySQL root password                                   |
-| `MYSQL_PASSWORD`         | MySQL application user password                       |
-| `JWT_SECRET`             | Secret key for JWT token signing                      |
+| `EKS_CLUSTER_NAME`      | e.g., `shopverse-cluster`                            |
+| `TF_STATE_BUCKET`       | Root@1234                                            |
+| `MYSQL_ROOT_PASSWORD`   | MySQL root password                                  |
+| `MYSQL_PASSWORD`        | App@1234                                             |
+| `JWT_SECRET`            | shopverse-secret-key-2024                            |
 
 ### Pipeline Stages
 
