@@ -259,7 +259,10 @@ jobs:
             helm registry login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
 
       - name: Deploy Helm chart
+        
         run: |
+          echo "===== HELM COMMAND START ====="
+          set -x
           helm upgrade --install shopverse \
             oci://${{ env.ECR_REGISTRY }}/shopverse-helmchart/shopverse \
             --version 1.0.0-${{ github.sha }} \
@@ -272,6 +275,8 @@ jobs:
             --create-namespace \
             --wait --timeout 300s \
             --cleanup-on-fail
+
+      
 
       - name: Verify deployment
         run: |
