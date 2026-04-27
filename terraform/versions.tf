@@ -13,9 +13,9 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "shopverse-terraform-state"
+    bucket  = "shopverse-terraform-state-sahil-2026"
     key     = "eks/terraform.tfstate"
-    region  = "us-east-1"
+    region  = "ap-south-1"
     encrypt = true
   }
 }
