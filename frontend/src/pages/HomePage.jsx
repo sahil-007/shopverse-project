@@ -48,43 +48,57 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative hero-pattern overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-fade-in-up">
-              <span className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-100 to-purple-100 text-primary-700 px-4 py-2 rounded-full text-sm font-bold mb-6 shadow-sm">
-                <Sparkles size={14} />
-                <span>New Collection 2026</span>
-                <span className="w-1.5 h-1.5 bg-primary-500 rounded-full animate-pulse" />
-              </span>
+        {/* Hero Section - Automation Test Version */}
+<section className="relative overflow-hidden bg-black text-white">
+  <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-black to-cyan-900 opacity-90" />
 
-              <h1 className="font-display text-5xl lg:text-7xl font-bold text-gray-900 leading-[1.1]">
-                Sahil&#39;s EKS{' '}
-                <span className="gradient-text">
-                  Project-shop
-                </span>
-              </h1>
+  <div className="relative max-w-7xl mx-auto px-6 py-28 text-center">
+    
+    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
+      <span className="animate-pulse">🚀</span>
+      <span className="text-sm font-semibold">
+        CI/CD Pipeline Successfully Deployed
+      </span>
+    </div>
 
-              <p className="mt-6 text-lg text-gray-600 leading-relaxed max-w-lg">
-                Explore our curated collection of premium products. From tech gadgets to everyday essentials, find everything you need in one place.
-              </p>
+    <h1 className="text-6xl lg:text-8xl font-extrabold leading-tight">
+      Sahil&apos;s
+      <span className="block bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+        Kubernetes Store
+      </span>
+    </h1>
 
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/products"
-                  className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-primary-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-xl hover:shadow-primary-600/25 transition-all hover:-translate-y-0.5"
-                >
-                  <span>Shop Now</span>
-                  <ArrowRight size={18} />
-                </Link>
-                <Link
-                  to="/products"
-                  className="inline-flex items-center justify-center space-x-2 bg-white text-gray-700 px-8 py-4 rounded-xl font-semibold border border-gray-200 hover:border-primary-300 hover:text-primary-600 hover:bg-primary-50/50 transition-all"
-                >
-                  <span>Browse Categories</span>
-                </Link>
-              </div>
+    <p className="mt-8 text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+      Live deployment powered by React, Golang, Docker, Kubernetes,
+      Helm, Traefik, GitHub Actions, and AWS EKS.
+    </p>
+
+    <div className="mt-10 flex flex-wrap justify-center gap-4">
+      <div className="px-6 py-3 rounded-xl bg-cyan-500/20 border border-cyan-400/30">
+        ⚡ Auto Build
+      </div>
+
+      <div className="px-6 py-3 rounded-xl bg-purple-500/20 border border-purple-400/30">
+        🔄 Auto Deploy
+      </div>
+
+      <div className="px-6 py-3 rounded-xl bg-green-500/20 border border-green-400/30">
+        ☁ AWS EKS Live
+      </div>
+    </div>
+
+    <div className="mt-14">
+      <Link
+        to="/products"
+        className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-2xl font-bold hover:scale-105 transition"
+      >
+        Explore Store
+        <ArrowRight size={20} />
+      </Link>
+    </div>
+  </div>
+</section>
+              
 
               {/* Stats */}
               <div className="mt-12 grid grid-cols-4 gap-6">
