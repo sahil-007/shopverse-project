@@ -60,7 +60,7 @@ export default function HomePage() {
               </span>
 
               <h1 className="font-display text-5xl lg:text-7xl font-bold text-gray-900 leading-[1.1]">
-                Sahil's EKS{' '}
+                Sahil&#39;s EKS{' '}
                 <span className="gradient-text">
                   Project-shop
                 </span>
