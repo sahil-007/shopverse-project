@@ -46,8 +46,7 @@ jobs:
       - name: Run frontend lint
         working-directory: ./frontend
         run: npx eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 --config .eslintrc.cjs
-
-         # ──────────────────────────────────────────────
+  # ──────────────────────────────────────────────
   # Stage 2: Security Scan
   # ──────────────────────────────────────────────
   security-scan:
@@ -78,9 +77,7 @@ jobs:
       - name: Run Trivy scan on backend
         run: |
           trivy image --exit-code 1 --severity CRITICAL --ignore-unfixed --format table shopverse-backend:scan
-
-
-            # ──────────────────────────────────────────────
+  # ──────────────────────────────────────────────
   # Stage 3: Build, Tag & Push Images + Helm Chart
   # ──────────────────────────────────────────────
   build-and-push:
@@ -157,8 +154,6 @@ jobs:
         run: |
           helm push shopverse-1.0.0-${{ github.sha }}.tgz \
             oci://${{ env.ECR_REGISTRY }}/shopverse-helmchart
-
-
   # ──────────────────────────────────────────────
   # Stage 4: Provision Infra (if needed) + Deploy
   # ──────────────────────────────────────────────
@@ -259,10 +254,7 @@ jobs:
             helm registry login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
 
       - name: Deploy Helm chart
-        
         run: |
-          echo "===== HELM COMMAND START ====="
-          set -x
           helm upgrade --install shopverse \
             oci://${{ env.ECR_REGISTRY }}/shopverse-helmchart/shopverse \
             --version 1.0.0-${{ github.sha }} \
@@ -275,8 +267,6 @@ jobs:
             --create-namespace \
             --wait --timeout 300s \
             --cleanup-on-fail
-
-      
 
       - name: Verify deployment
         run: |
@@ -302,5 +292,4 @@ jobs:
           echo "--- Ingress ---"
           kubectl get ingress -n shopverse 2>/dev/null || echo "No ingress configured"
  
-
 
