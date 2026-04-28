@@ -252,12 +252,16 @@ jobs:
         run: |
           aws ecr get-login-password --region ${{ env.AWS_REGION }} | \
             helm registry login --username AWS --password-stdin ${{ env.ECR_REGISTRY }}
+       
+      - name: Pull Helm chart from ECR
+        run: |
+            helm pull oci://${{ env.ECR_REGISTRY }}/shopverse-helmchart/shopverse \
+              --version 1.0.0-${{ github.sha }}
 
       - name: Deploy Helm chart
         run: |
           helm upgrade --install shopverse \
-            oci://${{ env.ECR_REGISTRY }}/shopverse-helmchart/shopverse \
-            --version 1.0.0-${{ github.sha }} \
+            ./shopverse-1.0.0-${{ github.sha }}.tgz \
             --set frontend.image=${{ env.ECR_REGISTRY }}/shopverse-frontend:${{ github.sha }} \
             --set backend.image=${{ env.ECR_REGISTRY }}/shopverse-backend:${{ github.sha }} \
             --set mysql.rootPassword=${{ secrets.MYSQL_ROOT_PASSWORD }} \
@@ -265,8 +269,12 @@ jobs:
             --set jwtSecret=${{ secrets.JWT_SECRET }} \
             --namespace shopverse \
             --create-namespace \
-            --wait --timeout 300s \
+            --wait \
+            --timeout 300s \
             --cleanup-on-fail
+
+      
+
 
       - name: Verify deployment
         run: |
