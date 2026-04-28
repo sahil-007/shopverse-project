@@ -35,7 +35,7 @@ Install the following tools on your local machine:
 aws configure
 # AWS Access Key ID: <your-access-key>
 # AWS Secret Access Key: <your-secret-key>
-# Default region name: us-east-1
+# Default region name: ap-south-1
 # Default output format: json
 
 # Verify
@@ -50,7 +50,7 @@ Terraform needs an S3 bucket to store state remotely.
 # Create S3 bucket for state
 aws s3api create-bucket \
   --bucket shopverse-terraform-state \
-  --region us-east-1
+  --region ap-south-1
 
 # Enable versioning
 aws s3api put-bucket-versioning \
@@ -70,7 +70,7 @@ cp terraform.tfvars.example terraform.tfvars
 Edit `terraform.tfvars` with your values:
 
 ```hcl
-aws_region   = "us-east-1"
+aws_region   = "ap-south-1"
 project_name = "shopverse"
 
 # VPC
@@ -105,7 +105,7 @@ If using S3 backend with different bucket/region:
 terraform init \
   -backend-config="bucket=my-custom-bucket" \
   -backend-config="key=eks/terraform.tfstate" \
-  -backend-config="region=us-east-1"
+  -backend-config="region=ap-south-1"
 ```
 
 ## Step 5: Plan and Review
@@ -130,7 +130,7 @@ After `terraform apply` completes, it outputs the kubeconfig command:
 
 ```bash
 # Copy the kubeconfig command from terraform output
-aws eks update-kubeconfig --name shopverse-cluster --region us-east-1
+aws eks update-kubeconfig --name shopverse-cluster --region ap-south-1
 
 # Verify connection
 kubectl get nodes
@@ -187,20 +187,20 @@ After the infrastructure is ready:
 
 ```bash
 # 1. Create ECR repositories
-aws ecr create-repository --repository-name shopverse-frontend --region us-east-1
-aws ecr create-repository --repository-name shopverse-backend --region us-east-1
+aws ecr create-repository --repository-name shopverse-frontend --region ap-south-1
+aws ecr create-repository --repository-name shopverse-backend --region ap-south-1
 
 # 2. Login to ECR
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-aws ecr get-login-password --region us-east-1 | \
-  docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+aws ecr get-login-password --region ap-south-1 | \
+  docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com
 
 # 3. Build and push images (from project root)
 cd ..
-docker build -t ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/shopverse-frontend:v1 ./frontend
-docker build -t ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/shopverse-backend:v1 ./backend
-docker push ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/shopverse-frontend:v1
-docker push ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/shopverse-backend:v1
+docker build -t ${ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/shopverse-frontend:v1 ./frontend
+docker build -t ${ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/shopverse-backend:v1 ./backend
+docker push ${ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/shopverse-frontend:v1
+docker push ${ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/shopverse-backend:v1
 
 # 4. Install ALB controller
 ALB_ROLE_ARN=$(cd terraform && terraform output -raw alb_controller_role_arn)
@@ -215,8 +215,8 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 
 # 5. Deploy with Helm
 helm upgrade --install shopverse ./helm/shopverse \
-  --set frontend.image=${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/shopverse-frontend:v1 \
-  --set backend.image=${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/shopverse-backend:v1 \
+  --set frontend.image=${ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/shopverse-frontend:v1 \
+  --set backend.image=${ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/shopverse-backend:v1 \
   --set mysql.rootPassword=YourRootPassword123 \
   --set mysql.password=YourAppPassword123 \
   --set jwtSecret=YourJwtSecretKey123 \
@@ -307,7 +307,7 @@ sudo cat /var/log/cloud-init-output.log
 ### kubectl can't connect from jump server
 ```bash
 # Re-run kubeconfig setup
-aws eks update-kubeconfig --name shopverse-cluster --region us-east-1
+aws eks update-kubeconfig --name shopverse-cluster --region ap-south-1
 
 # Verify IAM role has permissions
 aws sts get-caller-identity
@@ -319,6 +319,6 @@ aws sts get-caller-identity
 aws eks describe-nodegroup \
   --cluster-name shopverse-cluster \
   --nodegroup-name shopverse-cluster-nodes \
-  --region us-east-1 \
+  --region ap-south-1 \
   --query 'nodegroup.status'
 ```
