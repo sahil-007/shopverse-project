@@ -6,9 +6,6 @@ import {
   Truck,
   Shield,
   RefreshCw,
-  Star,
-  Zap,
-  Crown,
   TrendingUp,
 } from 'lucide-react'
 
@@ -24,12 +21,7 @@ const CATEGORIES = [
   { name: 'Home & Living', emoji: '🏠', color: 'from-teal-500 to-cyan-600', count: '20+ items' },
 ]
 
-const STATS = [
-  { value: '10K+', label: 'Happy Customers' },
-  { value: '500+', label: 'Premium Products' },
-  { value: '99%', label: 'Satisfaction Rate' },
-  { value: '24/7', label: 'Support Available' },
-]
+
 
 export default function HomePage() {
   const { api } = useContext(AppContext)
